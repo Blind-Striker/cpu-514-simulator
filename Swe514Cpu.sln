@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swe514Cpu", "Swe514Cpu\Swe514Cpu.csproj", "{BA7184B8-F593-4E5F-BB13-545BB3A29D0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swe514Cpu", "src\Swe514Cpu\Swe514Cpu.csproj", "{BA7184B8-F593-4E5F-BB13-545BB3A29D0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
