@@ -12,7 +12,7 @@ if (command == "assemble")
 {
     if (args.Length != 5)
     {
-        Console.WriteLine("Invalid argument, please execute program with following example, assemble --file file.txt --output ./output.bin");
+        Console.WriteLine("Invalid argument, please execute program with following example, assemble --input file.txt --output ./output.bin");
         return;
     }
 
@@ -45,7 +45,29 @@ if (command == "assemble")
 }
 else if (command == "execute")
 {
+    if (args.Length != 3)
+    {
+        Console.WriteLine("Invalid argument, please execute program with following example, execute --input file.bin");
+        return;
+    }
 
+    string inputPath = args[2];
+
+    if (inputPath == null)
+    {
+        Console.WriteLine("Please enter a valid input path");
+        return;
+    }
+
+    if (!File.Exists(inputPath))
+    {
+        Console.WriteLine($"File not exists: {inputPath}");
+        return;
+    }
+
+    string[] binInstructions = File.ReadAllLines(inputPath);
+
+    Cpu.Execute(binInstructions);
 }
 else
 {

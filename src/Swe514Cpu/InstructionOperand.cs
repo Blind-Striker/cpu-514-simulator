@@ -32,6 +32,8 @@ public class InstructionOperand
 
     public static InstructionOperand GetByName(string name) => Instructions.FirstOrDefault(instruction => instruction.Name == name);
 
+    public static InstructionOperand GetByCodeBin(string codeBin) => Instructions.FirstOrDefault(instruction => instruction.CodeBin == codeBin);
+
     public static int? GetCode(string name) => GetByName(name)?.Code;
 
     public static string GetCodeBin(string name) => Instructions.FirstOrDefault(instruction => instruction.Name == name)?.CodeBin;

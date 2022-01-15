@@ -81,7 +81,7 @@ internal static class Assembler
                 addressingMode = (int)AddressingModes.Immediate;
                 operandValue = operand.Replace("'", "").Replace("‘", "")[0];
             }
-            else if (int.TryParse(operand, out int numericValue))
+            else if (int.TryParse(operand, System.Globalization.NumberStyles.HexNumber, null, out int numericValue))
             {
                 addressingMode = (int)AddressingModes.Immediate;
                 operandValue = numericValue;
@@ -98,7 +98,7 @@ internal static class Assembler
                 else
                 {
                     addressingMode = (int)AddressingModes.MemoryAddress;
-                    operandValue = int.Parse(registerOrMemoryAddress);
+                    operandValue = int.Parse(registerOrMemoryAddress, System.Globalization.NumberStyles.HexNumber);
                 }
             }
             else

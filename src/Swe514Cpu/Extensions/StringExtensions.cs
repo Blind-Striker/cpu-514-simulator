@@ -4,6 +4,15 @@ internal static class StringExtensions
 {
     public static string ToHex(this string binary) => binary.ToHexArr().Aggregate((s1, s2) => s1 + s2);
 
+    public static string GetInstructionCode(this string instruction) => int.Parse(instruction, System.Globalization.NumberStyles.HexNumber).ToBin(24)[..6];
+
+    public static AddressingModes GetAddressingMode(this string instruction) =>
+        (AddressingModes)int.Parse(int.Parse(instruction, System.Globalization.NumberStyles.HexNumber).ToBin(24)
+            .Substring(6, 2).ToHex(), System.Globalization.NumberStyles.HexNumber);
+
+    public static ushort GetOperand(this string instruction) =>
+        ushort.Parse(int.Parse(instruction, System.Globalization.NumberStyles.HexNumber).ToBin(24).Substring(8, 16).ToHex(), System.Globalization.NumberStyles.HexNumber);
+
     private static IEnumerable<string> ToHexArr(this string binary)
     {
         if (binary == null)
