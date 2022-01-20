@@ -54,6 +54,11 @@ internal static class Cpu
                 break;
             }
 
+            if (opCode.Name == "NOP")
+            {
+                continue;
+            }
+
             if (opCode.Name == "LOAD")
             {
                 switch (addressingMode)
@@ -440,24 +445,285 @@ internal static class Cpu
             }
             else if (opCode.Name == "XOR")
             {
+                switch (addressingMode)
+                {
+                    case AddressingModes.Immediate:
+                        A = (ushort)(A ^ operand);
+                        break;
+                    case AddressingModes.Register:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)(A ^ A);
+                                break;
+                            case 2: // B
+                                A = (ushort)(A ^ B);
+                                break;
+                            case 3: // C
+                                A = (ushort)(A ^ C);
+                                break;
+                            case 4: // D
+                                A = (ushort)(A ^ D);
+                                break;
+                            case 5: // E
+                                A = (ushort)(A ^ E);
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+
+                        break;
+                    case AddressingModes.MemoryAddressRegister:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)(A ^ Memory.ReadWord(A));
+                                break;
+                            case 2: // B
+                                A = (ushort)(A ^ Memory.ReadWord(B));
+                                break;
+                            case 3: // C
+                                A = (ushort)(A ^ Memory.ReadWord(C));
+                                break;
+                            case 4: // D
+                                A = (ushort)(A ^ Memory.ReadWord(D));
+                                break;
+                            case 5: // E
+                                A = (ushort)(A ^ Memory.ReadWord(E));
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+                        break;
+                    case AddressingModes.MemoryAddress:
+                        A = (ushort)(A ^ Memory.ReadWord(operand));
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             else if (opCode.Name == "AND")
             {
+                switch (addressingMode)
+                {
+                    case AddressingModes.Immediate:
+                        A = (ushort)(A & operand);
+                        break;
+                    case AddressingModes.Register:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)(A & A);
+                                break;
+                            case 2: // B
+                                A = (ushort)(A & B);
+                                break;
+                            case 3: // C
+                                A = (ushort)(A & C);
+                                break;
+                            case 4: // D
+                                A = (ushort)(A & D);
+                                break;
+                            case 5: // E
+                                A = (ushort)(A & E);
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+
+                        break;
+                    case AddressingModes.MemoryAddressRegister:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)(A & Memory.ReadWord(A));
+                                break;
+                            case 2: // B
+                                A = (ushort)(A & Memory.ReadWord(B));
+                                break;
+                            case 3: // C
+                                A = (ushort)(A & Memory.ReadWord(C));
+                                break;
+                            case 4: // D
+                                A = (ushort)(A & Memory.ReadWord(D));
+                                break;
+                            case 5: // E
+                                A = (ushort)(A & Memory.ReadWord(E));
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+                        break;
+                    case AddressingModes.MemoryAddress:
+                        A = (ushort)(A & Memory.ReadWord(operand));
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             else if (opCode.Name == "OR")
             {
+                switch (addressingMode)
+                {
+                    case AddressingModes.Immediate:
+                        A = (ushort)(A | operand);
+                        break;
+                    case AddressingModes.Register:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)(A | A);
+                                break;
+                            case 2: // B
+                                B = (ushort)(A | B);
+                                break;
+                            case 3: // C
+                                C = (ushort)(A | C);
+                                break;
+                            case 4: // D
+                                A = (ushort)(A | D);
+                                break;
+                            case 5: // E
+                                A = (ushort)(A | E);
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+
+                        break;
+                    case AddressingModes.MemoryAddressRegister:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)(A | Memory.ReadWord(A));
+                                break;
+                            case 2: // B
+                                A = (ushort)(A | Memory.ReadWord(B));
+                                break;
+                            case 3: // C
+                                A = (ushort)(A | Memory.ReadWord(C));
+                                break;
+                            case 4: // D
+                                A = (ushort)(A | Memory.ReadWord(D));
+                                break;
+                            case 5: // E
+                                A = (ushort)(A | Memory.ReadWord(E));
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+                        break;
+                    case AddressingModes.MemoryAddress:
+                        A = (ushort)(A | Memory.ReadWord(operand));
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             else if (opCode.Name == "NOT")
             {
+                switch (addressingMode)
+                {
+                    case AddressingModes.Immediate:
+                        A = (ushort)~operand;
+                        break;
+                    case AddressingModes.Register:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)~A;
+                                break;
+                            case 2: // B
+                                B = (ushort)~B;
+                                break;
+                            case 3: // C
+                                C = (ushort)~C;
+                                break;
+                            case 4: // D
+                                D = (ushort)~D;
+                                break;
+                            case 5: // E
+                                E = (ushort)~E;
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+
+                        break;
+                    case AddressingModes.MemoryAddressRegister:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                A = (ushort)~Memory.ReadWord(A);
+                                break;
+                            case 2: // B    
+                                B = (ushort)~Memory.ReadWord(B);
+                                break;
+                            case 3: // C    
+                                C = (ushort)~Memory.ReadWord(C);
+                                break;
+                            case 4: // D    
+                                D = (ushort)~Memory.ReadWord(D);
+                                break;
+                            case 5: // E    
+                                E = (ushort)~Memory.ReadWord(E);
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+                        break;
+                    case AddressingModes.MemoryAddress:
+                        A = (ushort)~Memory.ReadWord(operand);
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             else if (opCode.Name == "SHL")
             {
+                switch (operand)
+                {
+                    case 1: // A
+                        A = (ushort)(A << 1);
+                        break;
+                    case 2: // B
+                        B = (ushort)(B << 1);
+                        break;
+                    case 3: // C
+                        C = (ushort)(C << 1);
+                        break;
+                    case 4: // D
+                        D = (ushort)(D << 1);
+                        break;
+                    case 5: // E
+                        E = (ushort)(E << 1);
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             else if (opCode.Name == "SHR")
             {
-            }
-            else if (opCode.Name == "NOP")
-            {
+                switch (operand)
+                {
+                    case 1: // A
+                        A = (ushort)(A >> 1);
+                        break;
+                    case 2: // B
+                        B = (ushort)(B >> 1);
+                        break;
+                    case 3: // C
+                        C = (ushort)(C >> 1);
+                        break;
+                    case 4: // D
+                        D = (ushort)(D >> 1);
+                        break;
+                    case 5: // E
+                        E = (ushort)(E >> 1);
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             else if (opCode.Name == "PUSH")
             {
@@ -470,9 +736,16 @@ internal static class Cpu
             }
             else if (opCode.Name == "JMP")
             {
+                PC = (ushort)(operand / 3);
+                continue;
             }
             else if (opCode.Name is "JZ" or "JE")
             {
+                if (ZF)
+                {
+                    PC = (ushort)(operand / 3);
+                    continue;
+                }
             }
             else if (opCode.Name is "JNZ" or "JNE")
             {
@@ -484,9 +757,19 @@ internal static class Cpu
             }
             else if (opCode.Name == "JC")
             {
+                if (CF)
+                {
+                    PC = (ushort)(operand / 3);
+                    continue;
+                }
             }
             else if (opCode.Name == "JNC")
             {
+                if (!CF)
+                {
+                    PC = (ushort)(operand / 3);
+                    continue;
+                }
             }
             else if (opCode.Name == "JA")
             {
@@ -561,25 +844,60 @@ internal static class Cpu
             }
             else if (opCode.Name == "PRINT")
             {
-                switch (operand)
+                switch (addressingMode)
                 {
-                    case 1: // A
-                        Console.WriteLine(Convert.ToChar(A));
+                    case AddressingModes.Immediate:
+                        Console.WriteLine(Convert.ToChar(operand));
                         break;
-                    case 2: // B
-                        Console.WriteLine(Convert.ToChar(B));
+                    case AddressingModes.Register:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                Console.WriteLine(Convert.ToChar(A));
+                                break;
+                            case 2: // B
+                                Console.WriteLine(Convert.ToChar(B));
+                                break;
+                            case 3: // C
+                                Console.WriteLine(Convert.ToChar(C));
+                                break;
+                            case 4: // D
+                                Console.WriteLine(Convert.ToChar(D));
+                                break;
+                            case 5: // E
+                                Console.WriteLine(Convert.ToChar(E));
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
                         break;
-                    case 3: // C
-                        Console.WriteLine(Convert.ToChar(C));
+                    case AddressingModes.MemoryAddressRegister:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                Console.WriteLine(Convert.ToChar(Memory.ReadWord(A)));
+                                break;
+                            case 2: // B
+                                Console.WriteLine(Convert.ToChar(Memory.ReadWord(B)));
+                                break;
+                            case 3: // C
+                                Console.WriteLine(Convert.ToChar(Memory.ReadWord(C)));
+                                break;
+                            case 4: // D
+                                Console.WriteLine(Convert.ToChar(Memory.ReadWord(D)));
+                                break;
+                            case 5: // E
+                                Console.WriteLine(Convert.ToChar(Memory.ReadWord(E)));
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
                         break;
-                    case 4: // D
-                        Console.WriteLine(Convert.ToChar(D));
-                        break;
-                    case 5: // E
-                        Console.WriteLine(Convert.ToChar(E));
+                    case AddressingModes.MemoryAddress:
+                        Console.WriteLine(Convert.ToChar(Memory.ReadWord(operand)));
                         break;
                     default:
-                        throw new InvalidOperationException();
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             else
