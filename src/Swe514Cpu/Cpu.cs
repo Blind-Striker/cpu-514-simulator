@@ -26,7 +26,7 @@ internal static class Cpu
         C = 0;
         D = 0;
         E = 0;
-        S = 0;
+        S = 0xFFFE;
 
         PC = 0;
 
@@ -182,6 +182,8 @@ internal static class Cpu
                         (result, hasCarry) = Add(A, operand);
                         A = result;
                         CF = hasCarry;
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     case AddressingModes.Register:
                         switch (operand)
@@ -190,26 +192,36 @@ internal static class Cpu
                                 (result, hasCarry) = Add(A, A);
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 (result, hasCarry) = Add(A, B);
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 (result, hasCarry) = Add(A, C);
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 (result, hasCarry) = Add(A, D);
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 (result, hasCarry) = Add(A, E);
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -223,26 +235,36 @@ internal static class Cpu
                                 (result, hasCarry) = Add(A, Memory.ReadWord(A));
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 (result, hasCarry) = Add(A, Memory.ReadWord(B));
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 (result, hasCarry) = Add(A, Memory.ReadWord(C));
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 (result, hasCarry) = Add(A, Memory.ReadWord(D));
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 (result, hasCarry) = Add(A, Memory.ReadWord(E));
                                 A = result;
                                 CF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -252,6 +274,8 @@ internal static class Cpu
                         (result, hasCarry) = Add(A, Memory.ReadWord(operand));
                         A = result;
                         CF = hasCarry;
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -268,6 +292,8 @@ internal static class Cpu
                         (result, hasCarry) = Sub(A, operand);
                         A = result;
                         CF = SF = hasCarry;
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     case AddressingModes.Register:
                         switch (operand)
@@ -276,29 +302,39 @@ internal static class Cpu
                                 (result, hasCarry) = Sub(A, A);
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 (result, hasCarry) = Sub(A, B);
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 //A = A - C;
                                 (result, hasCarry) = Sub(A, C);
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 //A = A - D;
                                 (result, hasCarry) = Sub(A, D);
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 //A = A - E;
                                 (result, hasCarry) = Sub(A, E);
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -312,26 +348,36 @@ internal static class Cpu
                                 (result, hasCarry) = Sub(A, Memory.ReadWord(A));
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 (result, hasCarry) = Sub(A, Memory.ReadWord(B));
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 (result, hasCarry) = Sub(A, Memory.ReadWord(C));
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 (result, hasCarry) = Sub(A, Memory.ReadWord(D));
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 (result, hasCarry) = Sub(A, Memory.ReadWord(E));
                                 A = result;
                                 CF = SF = hasCarry;
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -341,6 +387,8 @@ internal static class Cpu
                         (result, hasCarry) = Sub(A, Memory.ReadWord(operand));
                         A = result;
                         CF = SF = hasCarry;
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -349,27 +397,35 @@ internal static class Cpu
             }
             else if (opCode.Name == "INC")
             {
+                ushort memoryValue;
                 switch (addressingMode)
                 {
                     case AddressingModes.Immediate:
+                        A = (ushort)(operand + 1);
+                        SF = A > 0x7FFF;
                         break;
                     case AddressingModes.Register:
                         switch (operand)
                         {
                             case 1: // A
                                 A++;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 B++;
+                                SF = B > 0x7FFF;
                                 break;
                             case 3: // C
                                 C++;
+                                SF = C > 0x7FFF;
                                 break;
                             case 4: // D
                                 D++;
+                                SF = D > 0x7FFF;
                                 break;
                             case 5: // E
                                 E++;
+                                SF = E > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -377,10 +433,41 @@ internal static class Cpu
 
                         break;
                     case AddressingModes.MemoryAddressRegister:
-
+                        switch (operand)
+                        {
+                            case 1: // A
+                                memoryValue = (ushort)(Memory.ReadWord(A) + 1);
+                                Memory.Write(A, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                break;
+                            case 2: // B
+                                memoryValue = (ushort)(Memory.ReadWord(B) + 1);
+                                Memory.Write(B, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                break;
+                            case 3: // C
+                                memoryValue = (ushort)(Memory.ReadWord(C) + 1);
+                                Memory.Write(C, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                break;
+                            case 4: // D
+                                memoryValue = (ushort)(Memory.ReadWord(D) + 1);
+                                Memory.Write(D, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                break;
+                            case 5: // E
+                                memoryValue = (ushort)(Memory.ReadWord(E) + 1);
+                                Memory.Write(E, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
                         break;
                     case AddressingModes.MemoryAddress:
-
+                        memoryValue = (ushort)(Memory.ReadWord(operand) + 1);
+                        Memory.Write(operand, memoryValue);
+                        SF = memoryValue > 0x7FFF;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -391,53 +478,85 @@ internal static class Cpu
                 switch (addressingMode)
                 {
                     case AddressingModes.Immediate:
+                        A = (ushort)(operand + 1);
+                        SF = A > 0x7FFF;
+                        ZF = A == 0;
                         break;
                     case AddressingModes.Register:
                         switch (operand)
                         {
                             case 1: // A
                                 A--;
-                                if (A == 0)
-                                {
-                                    ZF = true;
-                                }
+                                SF = A > 0x7FFF;
+                                ZF = A == 0;
                                 break;
                             case 2: // B
                                 B--;
-                                if (B == 0)
-                                {
-                                    ZF = true;
-                                }
+                                SF = B > 0x7FFF;
+                                ZF = B == 0;
                                 break;
                             case 3: // C
                                 C--;
-                                if (C == 0)
-                                {
-                                    ZF = true;
-                                }
+                                SF = C > 0x7FFF;
+                                ZF = C == 0;
                                 break;
                             case 4: // D
                                 D--;
-                                if (D == 0)
-                                {
-                                    ZF = true;
-                                }
+                                SF = D > 0x7FFF;
+                                ZF = D == 0;
                                 break;
                             case 5: // E
                                 E--;
-                                if (E == 0)
-                                {
-                                    ZF = true;
-                                }
+                                SF = E > 0x7FFF;
+                                ZF = E == 0;
                                 break;
                             default:
                                 throw new InvalidOperationException();
                         }
                         break;
                     case AddressingModes.MemoryAddressRegister:
-
+                        ushort memoryValue;
+                        switch (operand)
+                        {
+                            case 1: // A
+                                memoryValue = (ushort)(Memory.ReadWord(A) - 1);
+                                Memory.Write(A, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                ZF = memoryValue == 0;
+                                break;
+                            case 2: // B
+                                memoryValue = (ushort)(Memory.ReadWord(B) - 1);
+                                Memory.Write(B, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                ZF = memoryValue == 0;
+                                break;
+                            case 3: // C
+                                memoryValue = (ushort)(Memory.ReadWord(C) - 1);
+                                Memory.Write(C, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                ZF = memoryValue == 0;
+                                break;
+                            case 4: // D
+                                memoryValue = (ushort)(Memory.ReadWord(D) - 1);
+                                Memory.Write(D, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                ZF = memoryValue == 0;
+                                break;
+                            case 5: // E
+                                memoryValue = (ushort)(Memory.ReadWord(E) - 1);
+                                Memory.Write(E, memoryValue);
+                                SF = memoryValue > 0x7FFF;
+                                ZF = memoryValue == 0;
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
                         break;
                     case AddressingModes.MemoryAddress:
+                        memoryValue = (ushort)(Memory.ReadWord(operand) - 1);
+                        Memory.Write(operand, memoryValue);
+                        SF = memoryValue > 0x7FFF;
+                        ZF = memoryValue == 0;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -449,24 +568,36 @@ internal static class Cpu
                 {
                     case AddressingModes.Immediate:
                         A = (ushort)(A ^ operand);
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     case AddressingModes.Register:
                         switch (operand)
                         {
                             case 1: // A
                                 A = (ushort)(A ^ A);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 A = (ushort)(A ^ B);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 A = (ushort)(A ^ C);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 A = (ushort)(A ^ D);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 A = (ushort)(A ^ E);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -478,18 +609,28 @@ internal static class Cpu
                         {
                             case 1: // A
                                 A = (ushort)(A ^ Memory.ReadWord(A));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 A = (ushort)(A ^ Memory.ReadWord(B));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 A = (ushort)(A ^ Memory.ReadWord(C));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 A = (ushort)(A ^ Memory.ReadWord(D));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 A = (ushort)(A ^ Memory.ReadWord(E));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -497,6 +638,8 @@ internal static class Cpu
                         break;
                     case AddressingModes.MemoryAddress:
                         A = (ushort)(A ^ Memory.ReadWord(operand));
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -508,24 +651,36 @@ internal static class Cpu
                 {
                     case AddressingModes.Immediate:
                         A = (ushort)(A & operand);
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     case AddressingModes.Register:
                         switch (operand)
                         {
                             case 1: // A
                                 A = (ushort)(A & A);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 A = (ushort)(A & B);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 A = (ushort)(A & C);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 A = (ushort)(A & D);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 A = (ushort)(A & E);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -537,18 +692,28 @@ internal static class Cpu
                         {
                             case 1: // A
                                 A = (ushort)(A & Memory.ReadWord(A));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 A = (ushort)(A & Memory.ReadWord(B));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 A = (ushort)(A & Memory.ReadWord(C));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 A = (ushort)(A & Memory.ReadWord(D));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 A = (ushort)(A & Memory.ReadWord(E));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -556,6 +721,8 @@ internal static class Cpu
                         break;
                     case AddressingModes.MemoryAddress:
                         A = (ushort)(A & Memory.ReadWord(operand));
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -567,24 +734,36 @@ internal static class Cpu
                 {
                     case AddressingModes.Immediate:
                         A = (ushort)(A | operand);
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     case AddressingModes.Register:
                         switch (operand)
                         {
                             case 1: // A
                                 A = (ushort)(A | A);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
-                                B = (ushort)(A | B);
+                                A = (ushort)(A | B);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
-                                C = (ushort)(A | C);
+                                A = (ushort)(A | C);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 A = (ushort)(A | D);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 A = (ushort)(A | E);
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -596,18 +775,28 @@ internal static class Cpu
                         {
                             case 1: // A
                                 A = (ushort)(A | Memory.ReadWord(A));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 2: // B
                                 A = (ushort)(A | Memory.ReadWord(B));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 3: // C
                                 A = (ushort)(A | Memory.ReadWord(C));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 4: // D
                                 A = (ushort)(A | Memory.ReadWord(D));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             case 5: // E
                                 A = (ushort)(A | Memory.ReadWord(E));
+                                ZF = A == 0;
+                                SF = A > 0x7FFF;
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -615,6 +804,8 @@ internal static class Cpu
                         break;
                     case AddressingModes.MemoryAddress:
                         A = (ushort)(A | Memory.ReadWord(operand));
+                        ZF = A == 0;
+                        SF = A > 0x7FFF;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -684,19 +875,34 @@ internal static class Cpu
                 switch (operand)
                 {
                     case 1: // A
+                        CF = A > 0x7FFF;
                         A = (ushort)(A << 1);
+                        SF = A > 0x7FFF;
+                        ZF = A == 0;
                         break;
                     case 2: // B
+                        CF = B > 0x7FFF;
                         B = (ushort)(B << 1);
+                        SF = B > 0x7FFF;
+                        ZF = B == 0;
                         break;
                     case 3: // C
+                        CF = C > 0x7FFF;
                         C = (ushort)(C << 1);
+                        SF = C > 0x7FFF;
+                        ZF = C == 0;
                         break;
                     case 4: // D
+                        CF = D > 0x7FFF;
                         D = (ushort)(D << 1);
+                        SF = D > 0x7FFF;
+                        ZF = D == 0;
                         break;
                     case 5: // E
+                        CF = E > 0x7FFF;
                         E = (ushort)(E << 1);
+                        SF = E > 0x7FFF;
+                        ZF = E == 0;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -708,18 +914,28 @@ internal static class Cpu
                 {
                     case 1: // A
                         A = (ushort)(A >> 1);
+                        SF = A > 0x7FFF;
+                        ZF = A == 0;
                         break;
                     case 2: // B
                         B = (ushort)(B >> 1);
+                        SF = A > 0x7FFF;
+                        ZF = A == 0;
                         break;
                     case 3: // C
                         C = (ushort)(C >> 1);
+                        SF = C > 0x7FFF;
+                        ZF = C == 0;
                         break;
                     case 4: // D
                         D = (ushort)(D >> 1);
+                        SF = D > 0x7FFF;
+                        ZF = D == 0;
                         break;
                     case 5: // E
                         E = (ushort)(E >> 1);
+                        SF = E > 0x7FFF;
+                        ZF = E == 0;
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -727,12 +943,167 @@ internal static class Cpu
             }
             else if (opCode.Name == "PUSH")
             {
+                switch (operand)
+                {
+                    case 1: // A
+                        Memory.Write(S, A);
+                        S = (ushort)(S - 2);
+                        break;
+                    case 2: // B
+                        Memory.Write(S, B);
+                        S = (ushort)(S - 2);
+                        break;
+                    case 3: // C
+                        Memory.Write(S, C);
+                        S = (ushort)(S - 2);
+                        break;
+                    case 4: // D
+                        Memory.Write(S, D);
+                        S = (ushort)(S - 2);
+                        break;
+                    case 5: // E
+                        Memory.Write(S, E);
+                        S = (ushort)(S - 2);
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
+                break;
             }
             else if (opCode.Name == "POP")
             {
+                switch (operand)
+                {
+                    case 1: // A
+                        A = Memory.ReadWord(S);
+                        Memory.Write(S, 0);
+                        S = (ushort)(S + 2);
+                        break;
+                    case 2: // B
+                        B = Memory.ReadWord(S);
+                        Memory.Write(S, 0);
+                        S = (ushort)(S + 2);
+                        break;
+                    case 3: // C
+                        C = Memory.ReadWord(S);
+                        Memory.Write(S, 0);
+                        S = (ushort)(S + 2);
+                        break;
+                    case 4: // D
+                        D = Memory.ReadWord(S);
+                        Memory.Write(S, 0);
+                        S = (ushort)(S + 2);
+                        break;
+                    case 5: // E
+                        E = Memory.ReadWord(S);
+                        Memory.Write(S, 0);
+                        S = (ushort)(S + 2);
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
+                break;
             }
             else if (opCode.Name == "CMP")
             {
+                ushort result;
+                bool hasCarry;
+
+                switch (addressingMode)
+                {
+                    case AddressingModes.Immediate:
+                        (result, hasCarry) = Sub(A, operand);
+                        ZF = result == 0;
+                        CF = SF = hasCarry;
+                        SF = result > 0x7FFF;
+                        break;
+                    case AddressingModes.Register:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                (result, hasCarry) = Sub(A, A);
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 2: // B
+                                (result, hasCarry) = Sub(A, B);
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 3: // C
+                                //A = A - C;
+                                (result, hasCarry) = Sub(A, C);
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 4: // D
+                                //A = A - D;
+                                (result, hasCarry) = Sub(A, D);
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 5: // E
+                                //A = A - E;
+                                (result, hasCarry) = Sub(A, E);
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+
+                        break;
+                    case AddressingModes.MemoryAddressRegister:
+                        switch (operand)
+                        {
+                            case 1: // A
+                                (result, hasCarry) = Sub(A, Memory.ReadWord(A));
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 2: // B
+                                (result, hasCarry) = Sub(A, Memory.ReadWord(B));
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 3: // C
+                                (result, hasCarry) = Sub(A, Memory.ReadWord(C));
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 4: // D
+                                (result, hasCarry) = Sub(A, Memory.ReadWord(D));
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            case 5: // E
+                                (result, hasCarry) = Sub(A, Memory.ReadWord(E));
+                                ZF = result == 0;
+                                CF = SF = hasCarry;
+                                SF = result > 0x7FFF;
+                                break;
+                            default:
+                                throw new InvalidOperationException();
+                        }
+                        break;
+                    case AddressingModes.MemoryAddress:
+                        (result, hasCarry) = Sub(A, Memory.ReadWord(operand));
+                        ZF = result == 0;
+                        CF = SF = hasCarry;
+                        SF = result > 0x7FFF;
+                        break;
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             else if (opCode.Name == "JMP")
             {
@@ -773,15 +1144,35 @@ internal static class Cpu
             }
             else if (opCode.Name == "JA")
             {
+                if (ZF == false && CF == false && SF == false)
+                {
+                    PC = (ushort)(operand / 3);
+                    continue;
+                }
             }
             else if (opCode.Name == "JAE")
             {
+                if (CF == false && SF == false)
+                {
+                    PC = (ushort)(operand / 3);
+                    continue;
+                }
             }
             else if (opCode.Name == "JB")
             {
+                if (ZF == false && CF && SF)
+                {
+                    PC = (ushort)(operand / 3);
+                    continue;
+                }
             }
             else if (opCode.Name == "JBE")
             {
+                if (ZF && CF && SF)
+                {
+                    PC = (ushort)(operand / 3);
+                    continue;
+                }
             }
             else if (opCode.Name == "READ")
             {
