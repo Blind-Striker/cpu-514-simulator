@@ -968,41 +968,39 @@ internal static class Cpu
                     default:
                         throw new InvalidOperationException();
                 }
-                break;
             }
             else if (opCode.Name == "POP")
             {
                 switch (operand)
                 {
                     case 1: // A
+                        S = (ushort)(S + 2);
                         A = Memory.ReadWord(S);
                         Memory.Write(S, 0);
-                        S = (ushort)(S + 2);
                         break;
                     case 2: // B
+                        S = (ushort)(S + 2);
                         B = Memory.ReadWord(S);
                         Memory.Write(S, 0);
-                        S = (ushort)(S + 2);
                         break;
                     case 3: // C
+                        S = (ushort)(S + 2);
                         C = Memory.ReadWord(S);
                         Memory.Write(S, 0);
-                        S = (ushort)(S + 2);
                         break;
                     case 4: // D
+                        S = (ushort)(S + 2);
                         D = Memory.ReadWord(S);
                         Memory.Write(S, 0);
-                        S = (ushort)(S + 2);
                         break;
                     case 5: // E
+                        S = (ushort)(S + 2);
                         E = Memory.ReadWord(S);
                         Memory.Write(S, 0);
-                        S = (ushort)(S + 2);
                         break;
                     default:
                         throw new InvalidOperationException();
                 }
-                break;
             }
             else if (opCode.Name == "CMP")
             {
@@ -1297,6 +1295,39 @@ internal static class Cpu
             }
 
             PC++;
+
+            Console.WriteLine($"========= BEGIN {opCode.Name} ============");
+            Console.WriteLine($"Operand: {operand:X2}");
+            Console.WriteLine($"Register A: {A:X2}");
+            Console.WriteLine($"Register B: {B:X2}");
+            Console.WriteLine($"Register C: {C:X2}");
+            Console.WriteLine($"Register D: {D:X2}");
+            Console.WriteLine($"Register E: {E:X2}");
+            Console.WriteLine($"Flag ZF: {ZF}");
+            Console.WriteLine($"Flag CF: {CF}");
+            Console.WriteLine($"Flag SF: {SF}");
+            Console.WriteLine($"Stack: {S:X2}");
+
+            Console.WriteLine("Memory:");
+
+            try
+            {
+                for (ushort i = 0xFFFF; i > 0x3FFF; i--)
+                {
+                    ushort memoryValue = Memory.ReadWord(i);
+                    if (memoryValue > 0)
+                    {
+                        Console.WriteLine($"{i:X2} - {memoryValue:X2}");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+            }
+
+
+            Console.WriteLine($"========= END {opCode.Name} ============");
+
         } while (halt);
     }
 

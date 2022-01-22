@@ -2,11 +2,11 @@
   "profiles": {
     "Swe514CpuAssembler": {
       "commandName": "Project",
-      "commandLineArgs": "assemble --input E:\\temp\\add.asm --output E:\\temp\\add.bin"
+      "commandLineArgs": "assemble --input E:\\temp\\shr_shl.asm --output E:\\temp\\shr_shl.bin"
     },
     "Swe514CpuExecute": {
       "commandName": "Project",
-      "commandLineArgs": "execute --input E:\\temp\\read_print.bin"
+      "commandLineArgs": "execute --input E:\\temp\\push_pop.bin"
     },
     "WSL": {
       "commandName": "WSL2",
