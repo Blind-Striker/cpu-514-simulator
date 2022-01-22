@@ -56,6 +56,7 @@ internal static class Cpu
 
             if (opCode.Name == "NOP")
             {
+                PC++;
                 continue;
             }
 
@@ -478,7 +479,7 @@ internal static class Cpu
                 switch (addressingMode)
                 {
                     case AddressingModes.Immediate:
-                        A = (ushort)(operand + 1);
+                        A = (ushort)(operand - 1);
                         SF = A > 0x7FFF;
                         ZF = A == 0;
                         break;
@@ -845,26 +846,26 @@ internal static class Cpu
                         switch (operand)
                         {
                             case 1: // A
-                                A = (ushort)~Memory.ReadWord(A);
+                                Memory.Write(A, (ushort)~Memory.ReadWord(A));
                                 break;
                             case 2: // B    
-                                B = (ushort)~Memory.ReadWord(B);
+                                Memory.Write(B, (ushort)~Memory.ReadWord(B));
                                 break;
                             case 3: // C    
-                                C = (ushort)~Memory.ReadWord(C);
+                                Memory.Write(C, (ushort)~Memory.ReadWord(C));
                                 break;
                             case 4: // D    
-                                D = (ushort)~Memory.ReadWord(D);
+                                Memory.Write(D, (ushort)~Memory.ReadWord(D));
                                 break;
                             case 5: // E    
-                                E = (ushort)~Memory.ReadWord(E);
+                                Memory.Write(E, (ushort)~Memory.ReadWord(E));
                                 break;
                             default:
                                 throw new InvalidOperationException();
                         }
                         break;
                     case AddressingModes.MemoryAddress:
-                        A = (ushort)~Memory.ReadWord(operand);
+                        Memory.Write(operand, (ushort)~Memory.ReadWord(operand));
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -976,27 +977,27 @@ internal static class Cpu
                     case 1: // A
                         S = (ushort)(S + 2);
                         A = Memory.ReadWord(S);
-                        Memory.Write(S, 0);
+                        Memory.Write(S, (ushort)0);
                         break;
                     case 2: // B
                         S = (ushort)(S + 2);
                         B = Memory.ReadWord(S);
-                        Memory.Write(S, 0);
+                        Memory.Write(S, (ushort)0);
                         break;
                     case 3: // C
                         S = (ushort)(S + 2);
                         C = Memory.ReadWord(S);
-                        Memory.Write(S, 0);
+                        Memory.Write(S, (ushort)0);
                         break;
                     case 4: // D
                         S = (ushort)(S + 2);
                         D = Memory.ReadWord(S);
-                        Memory.Write(S, 0);
+                        Memory.Write(S, (ushort)0);
                         break;
                     case 5: // E
                         S = (ushort)(S + 2);
                         E = Memory.ReadWord(S);
-                        Memory.Write(S, 0);
+                        Memory.Write(S, (ushort)0);
                         break;
                     default:
                         throw new InvalidOperationException();
@@ -1166,7 +1167,7 @@ internal static class Cpu
             }
             else if (opCode.Name == "JBE")
             {
-                if (ZF && CF && SF)
+                if (ZF || (CF && SF))
                 {
                     PC = (ushort)(operand / 3);
                     continue;
@@ -1174,7 +1175,8 @@ internal static class Cpu
             }
             else if (opCode.Name == "READ")
             {
-                ushort input = (ushort)Console.Read();
+                string userInput = Console.ReadLine();
+                ushort input = (ushort)userInput[0];
 
                 switch (addressingMode)
                 {
@@ -1205,19 +1207,19 @@ internal static class Cpu
                         switch (operand)
                         {
                             case 1: // A
-                                Memory.Write(Memory.ReadWord(A), input);
+                                Memory.Write(A, input);
                                 break;
                             case 2: // B
-                                Memory.Write(Memory.ReadWord(B), input);
+                                Memory.Write(B, input);
                                 break;
                             case 3: // C
-                                Memory.Write(Memory.ReadWord(C), input);
+                                Memory.Write(C, input);
                                 break;
                             case 4: // D
-                                Memory.Write(Memory.ReadWord(D), input);
+                                Memory.Write(D, input);
                                 break;
                             case 5: // E
-                                Memory.Write(Memory.ReadWord(E), input);
+                                Memory.Write(E, input);
                                 break;
                             default:
                                 throw new InvalidOperationException();
@@ -1310,21 +1312,10 @@ internal static class Cpu
 
             Console.WriteLine("Memory:");
 
-            try
+            foreach ((ushort key, ushort value) in Memory.UsedMemory)
             {
-                for (ushort i = 0xFFFF; i > 0x3FFF; i--)
-                {
-                    ushort memoryValue = Memory.ReadWord(i);
-                    if (memoryValue > 0)
-                    {
-                        Console.WriteLine($"{i:X2} - {memoryValue:X2}");
-                    }
-                }
+                Console.WriteLine($"{key:X2} - {value:X2}");
             }
-            catch (Exception e)
-            {
-            }
-
 
             Console.WriteLine($"========= END {opCode.Name} ============");
 

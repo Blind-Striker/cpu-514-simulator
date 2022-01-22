@@ -42,6 +42,21 @@ internal static class Assembler
                 continue;
             }
 
+            if (instruction.Trim() == "NOP")
+            {
+                InstructionOperand haltOp = InstructionOperand.GetByName("NOP");
+                string nopOpCodeBin = haltOp.CodeBin;
+                string nopAddModeBin = ((int)AddressingModes.Immediate).ToBin(2);
+                string nopOperandBin = 0.ToBin(16);
+
+                string nopInstruction = $"{nopOpCodeBin}{nopAddModeBin}{nopOperandBin}".ToHex();
+
+                Console.WriteLine(nopInstruction);
+                binInstructions.Add(nopInstruction);
+
+                continue;
+            }
+
             if (instruction.Trim() == "HALT")
             {
                 InstructionOperand haltOp = InstructionOperand.GetByName("HALT");

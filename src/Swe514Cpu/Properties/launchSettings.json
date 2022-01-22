@@ -6,7 +6,7 @@
     },
     "Swe514CpuExecute": {
       "commandName": "Project",
-      "commandLineArgs": "execute --input E:\\temp\\push_pop.bin"
+      "commandLineArgs": "execute --input E:\\temp\\read_print.bin"
     },
     "WSL": {
       "commandName": "WSL2",

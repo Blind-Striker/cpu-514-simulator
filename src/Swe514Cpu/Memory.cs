@@ -7,10 +7,12 @@ public class Memory
 {
     private readonly byte[] _ram = new byte[0x10000];
 
+    private readonly Dictionary<ushort, ushort> _usedMemory = new Dictionary<ushort, ushort>();
+
     public Memory()
     {
     }
-
+    
     public byte Read(ushort address)
     {
         return _ram[address];
@@ -34,7 +36,20 @@ public class Memory
         // this is the little impl
         _ram[address] = value.GetLow();
         _ram[address + 1] = value.GetHigh();
+
+
+        ushort wordMemory = MemoryUtils.MakeWord(_ram[address + 1], _ram[address]);
+        if (!_usedMemory.ContainsKey(address))
+        {
+            _usedMemory.Add(address, wordMemory);
+        }
+        else
+        {
+            _usedMemory[address] = wordMemory;
+        }
     }
+
+    public Dictionary<ushort, ushort> UsedMemory => _usedMemory;
 }
 
 public static class MemoryUtils
